@@ -1,0 +1,3 @@
+rootProject.name = "gateway-for-communications-ltd-android-animation"
+include ':app'
+include ':bannerAds'

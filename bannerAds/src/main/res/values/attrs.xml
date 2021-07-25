@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="BannerView">
+        <attr name="displayImageDuration" format="integer" />
+        <attr name="nextImageDelay" format="integer" />
+        <attr name="fadeInDuration" format="integer" />
+        <attr name="fadeOutDuration" format="integer" />
+    </declare-styleable>
+</resources>

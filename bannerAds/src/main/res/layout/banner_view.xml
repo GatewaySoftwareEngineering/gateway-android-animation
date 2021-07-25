@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="position"
+            type="Integer" />
+        <variable
+            name="url"
+            type="String" />
+        <variable
+            name="clickListener"
+            type="com.gateway.android.bannerads.util.OnBannerClickListener" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:onClick="@{()-> clickListener.onClick(position)}">
+
+        <ImageView
+            android:id="@+id/banner_image_view"
+            loadImage="@{url}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+</layout>
