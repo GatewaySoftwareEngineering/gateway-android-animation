@@ -6,6 +6,10 @@ import android.os.Looper
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import androidx.annotation.DrawableRes
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.gateway.android.bannerads.R
 import com.gateway.android.bannerads.databinding.BannerViewBinding
 import com.gateway.android.bannerads.util.OnBannerClickListener
@@ -19,12 +23,18 @@ class BannerView(
         BannerViewBinding.inflate(LayoutInflater.from(context), this, true)
 
     lateinit var imagesUrl: List<String>
-    private var position: Int = 0
+    var position: Int = 0
 
-    val fadeInDuration: Long
-    val fadeOutDuration: Long
-    val displayImageDuration: Long
-    val nextImageDelay: Long
+    private var fadeInDuration: Long
+    private var fadeOutDuration: Long
+    private var displayImageDuration: Long
+    private var nextImageDelay: Long
+
+    @DrawableRes
+    var errorImageRes: Int = R.drawable.ic_broken_image
+
+    @DrawableRes
+    var loadingImageRes: Int = R.drawable.loading_img
 
     private val fadeInHandler: Handler = Handler(Looper.getMainLooper())
     private val fadeInRunnable: Runnable = Runnable {
@@ -61,11 +71,25 @@ class BannerView(
     }
 
     private fun fadeInAnimation() {
-        binding.let {
-            it.url = imagesUrl[position]
-            it.position = position
-            it.executePendingBindings()
-            it.bannerImageView.animate().setDuration(fadeInDuration).alpha(1f).start()
+        binding.apply {
+            this@BannerView.position.let {
+                url = imagesUrl[it]
+                position = it
+            }
+
+            Glide.with(bannerImageView)
+                .asBitmap()
+                .load(url)
+                .apply(
+                    RequestOptions()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(loadingImageRes)
+                        .error(errorImageRes)
+                )
+                .into(bannerImageView)
+
+            bannerImageView.animate().setDuration(fadeInDuration).alpha(1f).start()
+            executePendingBindings()
         }
         fadeOutHandler.postDelayed(fadeOutRunnable, displayImageDuration)
     }
@@ -78,9 +102,21 @@ class BannerView(
     }
 
     fun setOnClickListener(clickListener: OnBannerClickListener) {
-        binding.let {
-            it.clickListener = clickListener
-            it.executePendingBindings()
+        binding.apply {
+            this.clickListener = clickListener
+            executePendingBindings()
         }
+    }
+
+    fun animationsPeriod(
+        fadeIn: Long = fadeInDuration,
+        fadeOut: Long = fadeOutDuration,
+        displayImage: Long = displayImageDuration,
+        nextImage: Long = nextImageDelay
+    ) {
+        fadeInDuration = fadeIn
+        fadeOutDuration = fadeOut
+        displayImageDuration = displayImage
+        nextImageDelay = nextImage + fadeOutDuration
     }
 }

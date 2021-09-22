@@ -1,8 +1,8 @@
 package com.gateway.android.animation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.gateway.android.bannerads.util.OnBannerClickListener
 import com.gateway.android.bannerads.view.BannerView
 
@@ -22,5 +22,10 @@ class MainActivity : AppCompatActivity() {
         bannerImage.setOnClickListener(OnBannerClickListener {
             Toast.makeText(this, "$it", Toast.LENGTH_SHORT).show()
         })
+        bannerImage.animationsPeriod(
+            fadeIn = 2000,
+            fadeOut = 4000,
+            displayImage = 5000
+        )
     }
 }
