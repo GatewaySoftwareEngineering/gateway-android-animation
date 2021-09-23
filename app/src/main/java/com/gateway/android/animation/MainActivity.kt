@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         bannerImage.animationsPeriod(
             fadeIn = 2000,
             fadeOut = 4000,
-            displayImage = 5000
+            displayImage = 6000
         )
     }
 }
