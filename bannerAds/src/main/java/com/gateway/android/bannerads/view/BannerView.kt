@@ -23,7 +23,7 @@ class BannerView(
         BannerViewBinding.inflate(LayoutInflater.from(context), this, true)
 
     lateinit var imagesUrl: List<String>
-    var position: Int = 0
+    private var position: Int = 0
 
     private var fadeInDuration: Long
     private var fadeOutDuration: Long
