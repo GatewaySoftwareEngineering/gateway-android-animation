@@ -1,3 +1,6 @@
 # configuration file for building snapshots and releases with jitpack.io
 jdk:
   - openjdk11
+install:
+  - ./gradlew :bannerAds:build :bannerAds:publishToMavenLocal -x :bannerAds:test
+  - find . -name "*.aar"
