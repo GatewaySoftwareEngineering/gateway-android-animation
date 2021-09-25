@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.gateway.android.bannerads.view.BannerView
-        android:id="@+id/banner_frame_layout"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        app:displayImageDuration="3000"
-        app:fadeInDuration="300"
-        app:fadeOutDuration="300" />
+<!--    <com.gateway.android.bannerads.view.BannerView-->
+<!--        android:id="@+id/banner_frame_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="150dp"-->
+<!--        app:displayImageDuration="3000"-->
+<!--        app:fadeInDuration="300"-->
+<!--        app:fadeOutDuration="300" />-->
 </FrameLayout>
