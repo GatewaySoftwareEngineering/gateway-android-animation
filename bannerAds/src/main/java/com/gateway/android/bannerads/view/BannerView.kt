@@ -77,16 +77,20 @@ class BannerView(
                 position = it
             }
 
-            Glide.with(bannerImageView)
-                .asBitmap()
-                .load(url)
-                .apply(
-                    RequestOptions()
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .placeholder(loadingImageRes)
-                        .error(errorImageRes)
-                )
-                .into(bannerImageView)
+            try {
+                Glide.with(context.applicationContext)
+                    .asBitmap()
+                    .load(url)
+                    .apply(
+                        RequestOptions()
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .placeholder(loadingImageRes)
+                            .error(errorImageRes)
+                    )
+                    .into(bannerImageView)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
 
             bannerImageView.animate().setDuration(fadeInDuration).alpha(1f).start()
             executePendingBindings()
