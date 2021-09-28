@@ -70,6 +70,11 @@ class BannerView(
         fadeInAnimation()
     }
 
+    fun stop() {
+        fadeInHandler.removeCallbacks(fadeInRunnable)
+        fadeOutHandler.removeCallbacks(fadeOutRunnable)
+    }
+
     private fun fadeInAnimation() {
         binding.apply {
             this@BannerView.position.let {
