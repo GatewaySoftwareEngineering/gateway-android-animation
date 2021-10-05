@@ -1,12 +1,14 @@
 package com.gateway.android.bannerads.view
 
 import android.content.Context
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.annotation.DrawableRes
+import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
@@ -29,6 +31,7 @@ class BannerView(
     private var fadeOutDuration: Long
     private var displayImageDuration: Long
     private var nextImageDelay: Long
+    private var foreground: Int
 
     @DrawableRes
     var errorImageRes: Int = R.drawable.ic_broken_image
@@ -47,23 +50,33 @@ class BannerView(
     }
 
     init {
-        val attributes = context.obtainStyledAttributes(attrs, R.styleable.BannerView)
+        context.obtainStyledAttributes(attrs, R.styleable.BannerView).apply {
+            try {
+                fadeInDuration = getInteger(
+                    R.styleable.BannerView_fadeInDuration, 500
+                ).toLong()
+                fadeOutDuration = getInteger(
+                    R.styleable.BannerView_fadeOutDuration, 500
+                ).toLong()
+                displayImageDuration = getInteger(
+                    R.styleable.BannerView_displayImageDuration, 3000
+                ).toLong()
 
-        fadeInDuration = attributes.getInteger(
-            R.styleable.BannerView_fadeInDuration, 500
-        ).toLong()
-        fadeOutDuration = attributes.getInteger(
-            R.styleable.BannerView_fadeOutDuration, 500
-        ).toLong()
-        displayImageDuration = attributes.getInteger(
-            R.styleable.BannerView_displayImageDuration, 3000
-        ).toLong()
+                nextImageDelay = getInteger(
+                    R.styleable.BannerView_nextImageDelay, 0
+                ).toLong() + fadeOutDuration
 
-        nextImageDelay = attributes.getInteger(
-            R.styleable.BannerView_nextImageDelay, 0
-        ).toLong() + fadeOutDuration
+                foreground = getResourceId(R.styleable.BannerView_foreground, 0)
+            } finally {
+                recycle()
+            }
+        }
 
-        attributes.recycle()
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        setForeground(foreground)
     }
 
     fun start() {
@@ -127,5 +140,12 @@ class BannerView(
         fadeOutDuration = fadeOut
         displayImageDuration = displayImage
         nextImageDelay = nextImage + fadeOutDuration
+    }
+
+    fun setForeground(@DrawableRes resourceId: Int) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            binding.root.foreground =
+                ResourcesCompat.getDrawable(resources, resourceId, null)
+        }
     }
 }

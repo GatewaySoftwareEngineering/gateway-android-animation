@@ -6,5 +6,6 @@
         <attr name="nextImageDelay" format="integer" />
         <attr name="fadeInDuration" format="integer" />
         <attr name="fadeOutDuration" format="integer" />
+        <attr name="foreground" format="reference|color" />
     </declare-styleable>
 </resources>

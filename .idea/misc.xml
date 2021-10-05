@@ -3,8 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/ripple_animation.xml" value="0.2953703703703704" />
+        <entry key="app/src/main/res/drawable/ripple_animation.xml" value="0.20572916666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.16590678824721378" />
         <entry key="bannerAds/src/main/res/drawable/ic_broken_image.xml" value="0.29074074074074074" />
+        <entry key="bannerAds/src/main/res/drawable/loading_img.xml" value="0.29814814814814816" />
+        <entry key="bannerAds/src/main/res/drawable/ripple.xml" value="0.2953703703703704" />
+        <entry key="bannerAds/src/main/res/drawable/ripple_animation.xml" value="0.20572916666666666" />
         <entry key="bannerAds/src/main/res/layout/banner_view.xml" value="0.23097826086956522" />
       </map>
     </option>

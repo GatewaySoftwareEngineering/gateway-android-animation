@@ -1,7 +1,10 @@
 package com.gateway.android.animation
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.gateway.android.bannerads.util.OnBannerClickListener
+import com.gateway.android.bannerads.view.BannerView
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,5 +27,6 @@ class MainActivity : AppCompatActivity() {
 //            fadeOut = 4000,
 //            displayImage = 6000
 //        )
+//        bannerImage.setanimation()
     }
 }

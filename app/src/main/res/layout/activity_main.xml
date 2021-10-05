@@ -12,5 +12,6 @@
 <!--        android:layout_height="150dp"-->
 <!--        app:displayImageDuration="3000"-->
 <!--        app:fadeInDuration="300"-->
-<!--        app:fadeOutDuration="300" />-->
+<!--        app:fadeOutDuration="300"-->
+<!--        app:foreground="@drawable/ripple_animation"/>-->
 </FrameLayout>
