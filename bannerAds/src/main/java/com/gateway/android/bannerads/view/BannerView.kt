@@ -7,6 +7,7 @@ import android.os.Looper
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
@@ -32,6 +33,7 @@ class BannerView(
     private var displayImageDuration: Long
     private var nextImageDelay: Long
     private var foreground: Int
+    private var scaleType: Int
 
     @DrawableRes
     var errorImageRes: Int = R.drawable.ic_broken_image
@@ -66,7 +68,9 @@ class BannerView(
                     R.styleable.BannerView_nextImageDelay, 0
                 ).toLong() + fadeOutDuration
 
-                foreground = getResourceId(R.styleable.BannerView_foreground, 0)
+                foreground = getResourceId(R.styleable.BannerView_foreground, -1)
+
+                scaleType = getInt(R.styleable.BannerView_scaleType, -1)
             } finally {
                 recycle()
             }
@@ -76,7 +80,22 @@ class BannerView(
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        setForeground(foreground)
+        if (foreground >= 0)
+            setForeground(foreground)
+        if (scaleType >= 0) {
+            val type = when (scaleType) {
+                0 -> ImageView.ScaleType.MATRIX
+                1 -> ImageView.ScaleType.FIT_XY
+                2 -> ImageView.ScaleType.FIT_START
+                3 -> ImageView.ScaleType.FIT_CENTER
+                4 -> ImageView.ScaleType.FIT_END
+                5 -> ImageView.ScaleType.CENTER
+                6 -> ImageView.ScaleType.CENTER_CROP
+                7 -> ImageView.ScaleType.CENTER_INSIDE
+                else -> ImageView.ScaleType.FIT_CENTER
+            }
+            setScaleType(type)
+        }
     }
 
     fun start() {
@@ -147,5 +166,9 @@ class BannerView(
             binding.root.foreground =
                 ResourcesCompat.getDrawable(resources, resourceId, null)
         }
+    }
+
+    fun setScaleType(type: ImageView.ScaleType) {
+        binding.bannerImageView.scaleType = type
     }
 }
