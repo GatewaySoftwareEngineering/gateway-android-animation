@@ -56,9 +56,9 @@ afterEvaluate {
             // Creates a Maven publication called "release".
             release(MavenPublication) {
                 // Applies the component for the release build variant.
-                groupId = 'gateway.android.animation'
+                groupId = 'com.github.GatewaySoftwareEngineering'
                 artifactId = 'bannerAds'
-                version = '1.1.21'
+                version = '1.1.22'
                 from components.release
             }
             // Creates a Maven publication called “debug”.
