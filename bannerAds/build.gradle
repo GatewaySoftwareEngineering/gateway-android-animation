@@ -56,10 +56,12 @@ afterEvaluate {
             // Creates a Maven publication called "release".
             release(MavenPublication) {
                 // Applies the component for the release build variant.
-                groupId = 'com.github.GatewaySoftwareEngineering'
-                artifactId = 'bannerAds'
-                version = '1.1.22'
                 from components.release
+
+                // You can then customize attributes of the publication as shown below.
+                groupId = 'com.example.MyLibrary'
+                artifactId = 'final'
+                version = '1.0'
             }
             // Creates a Maven publication called “debug”.
             debug(MavenPublication) {
