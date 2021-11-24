@@ -24,11 +24,14 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "$it", Toast.LENGTH_SHORT).show()
         })
         bannerImage.animationsPeriod(
-            fadeIn = 2000,
-            fadeOut = 4000,
-            displayImage = 6000
+            fadeIn = 500,
+            fadeOut = 500,
+            displayImage = 3000
         )
 //        bannerImage.setanimation()
         bannerImage.setScaleType(ImageView.ScaleType.CENTER)
+        bannerImage.onFadeInListener {
+            Toast.makeText(this, "$it", Toast.LENGTH_SHORT).show()
+        }
     }
 }

@@ -26,14 +26,25 @@ class BannerView(
         BannerViewBinding.inflate(LayoutInflater.from(context), this, true)
 
     lateinit var imagesUrl: List<String>
-    private var position: Int = 0
+    var position: Int = 0
 
-    private var fadeInDuration: Long
-    private var fadeOutDuration: Long
-    private var displayImageDuration: Long
-    private var nextImageDelay: Long
+    var fadeInDuration: Long
+    var fadeOutDuration: Long
+    var displayImageDuration: Long
+    var nextImageDelay: Long
     private var foreground: Int
-    private var scaleType: Int
+    var scaleType: Int
+
+    var fadeInListener: ((Int) -> Unit)? = null
+    var fadeOutListener: ((Int) -> Unit)? = null
+
+    fun onFadeInListener(fadeInListener: (Int) -> Unit) {
+        this.fadeInListener = fadeInListener
+    }
+
+    fun onFadeOutListener(fadeOutListener: (Int) -> Unit) {
+        this.fadeOutListener = fadeOutListener
+    }
 
     @DrawableRes
     var errorImageRes: Int = R.drawable.ic_broken_image
@@ -44,11 +55,13 @@ class BannerView(
     private val fadeInHandler: Handler = Handler(Looper.getMainLooper())
     private val fadeInRunnable: Runnable = Runnable {
         fadeInAnimation()
+        fadeInListener?.invoke(position)
     }
 
     private val fadeOutHandler: Handler = Handler(Looper.getMainLooper())
     private val fadeOutRunnable: Runnable = Runnable {
         fadeOutAnimation()
+        fadeOutListener?.invoke(position)
     }
 
     init {
@@ -100,6 +113,7 @@ class BannerView(
 
     fun start() {
         fadeInAnimation()
+        fadeInListener?.invoke(position)
     }
 
     fun stop() {
